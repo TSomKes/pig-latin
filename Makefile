@@ -1,7 +1,7 @@
 clean:
 	rm *.pyc
 
-pep8:
+lint:
 	pep8 . --show-source --statistics
 
 test:
