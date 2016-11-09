@@ -4,6 +4,11 @@ class Translator():
         self.inWord = False
 
     def Translate(self, text):
+        """Translate the given text into Pig Latin
+
+        Based on the (simple) rules at
+        https://en.wikipedia.org/wiki/Pig_Latin#Rules.
+        """
 
         return self.TranslateWord(text)
 
