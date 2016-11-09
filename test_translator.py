@@ -32,5 +32,10 @@ class TestTranslator(unittest.TestCase):
         t = Translator()
         self.assertEqual(t.Translate("foo"), "oofay")
 
+    def test_Translate_multiplewords(self):
+        t = Translator()
+        self.assertEqual(t.Translate("this is a test"),
+                                     "isthay isway away esttay")
+
 if __name__ == "main":
     unittest.main()

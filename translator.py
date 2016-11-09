@@ -1,17 +1,43 @@
+from itertools import takewhile
+
+
 class Translator():
 
     def __init__(self):
-        self.inWord = False
+        pass
 
     def Translate(self, text):
         """Translate the given text into Pig Latin
 
         Based on the (simple) rules at
         https://en.wikipedia.org/wiki/Pig_Latin#Rules.
+
+        Note:
+        - Supports initial capital letters only; assumes all others are
+          lower-case.
         """
 
-        return self.TranslateWord(text)
+        translation = ""
 
+        remaining = text
+
+        while remaining:
+
+            chunk = ''
+            if remaining[0].isalpha():
+                chunk = ''.join(takewhile(lambda c: c.isalpha(), remaining))
+                translation += self.TranslateWord(chunk)
+            else:
+                chunk = ''.join(takewhile(lambda c: not c.isalpha(),
+                                remaining))
+                translation += chunk
+
+            # Lop off the chunk we just processed
+            remaining = remaining[len(chunk):]
+
+        return translation
+
+    @classmethod
     def TranslateWord(self, text):
 
         translation = ""
