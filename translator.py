@@ -1,27 +1,35 @@
 class Translator():
 
     def __init__(self):
-        self.outputText = ""
-        self.stagedConsonants = ""
-        self.foundVowel = False
+        self.inWord = False
 
     def Translate(self, text):
+
+        return self.TranslateWord(text)
+
+    def TranslateWord(self, text):
+
+        translation = ""
+
+        stagedConsonants = ""
+        foundVowel = False
+
         for c in text:
-            if self.foundVowel:
-                self.outputText += c
+            if foundVowel:
+                translation += c
             else:
                 if Translator.IsVowel(c):
-                    self.foundVowel = True
-                    self.outputText += c
+                    foundVowel = True
+                    translation += c
                 else:
-                    self.stagedConsonants += c
+                    stagedConsonants += c
 
-        if self.stagedConsonants:
-            self.outputText += self.stagedConsonants + "ay"
+        if stagedConsonants:
+            translation += stagedConsonants + "ay"
         else:
-            self.outputText += "way"
+            translation += "way"
 
-        return self.outputText
+        return translation
 
     @classmethod
     def IsVowel(self, char):
