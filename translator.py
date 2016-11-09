@@ -9,7 +9,7 @@ class Translator():
     def Translate(self, text):
         """Translate the given text into Pig Latin
 
-        Based on the (simple) rules at
+        Based on the (very simple) rules at
         https://en.wikipedia.org/wiki/Pig_Latin#Rules.
 
         Note:
@@ -21,6 +21,8 @@ class Translator():
 
         remaining = text
 
+        # Find "chunks" of contiguous letters (words) or non-letters
+        # (whitespace, punctuation)
         while remaining:
 
             chunk = ''
@@ -59,6 +61,13 @@ class Translator():
             translation += stagedConsonants + "ay"
         else:
             translation += "way"
+
+        # We only support capital letters at the beginning of the word.  Stomp
+        # all the rest down to lower-case, and then condtionally captialize the
+        # "new" first letter.
+        translation = translation.lower()
+        if text[0].isupper():
+            translation = translation[0].upper() + translation[1:]
 
         return translation
 
