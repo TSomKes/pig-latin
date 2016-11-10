@@ -8,6 +8,9 @@ she'd enjoy "testing" for me :).
 This is meant to be a learning experience for me:  Working more publicly in
 github, playing with Python (esp. unit testing), etc.
 
+A little write-up of my experience is available <a
+href="http://tsomkes.com/pig_latin_app/">here</a>.
+
 ## Disclaimers
 This is /not/ meant to be a useful utility, though in time it might drift in
 that direction.
