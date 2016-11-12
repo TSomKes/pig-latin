@@ -25,7 +25,7 @@ To finish translating, enter 'quit'.
 done = False
 while not done:
     text = input("Text to translate: ")
-    done = text in ['quit', 'itquay']   # User quitting?
+    done = text.lower() in ['quit', 'itquay']   # User quitting?
     print(t.Translate(text) + '\n')
 
 print(t.Translate(messageGoodbye))
