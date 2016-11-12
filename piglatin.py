@@ -3,29 +3,25 @@
 
 import os
 
-import translator
+from translator import Translate
 
 
 messageWelcome = "Pig Latin"
 messageGoodbye = "Goodbye! :)"
 
 
-t = translator.Translator()
-
 # Clear display
 os.system('cls')
 os.system('clear')
 
 # Print welcome message
-print(messageWelcome + ":  " + t.Translate(messageWelcome))
-print(""" 
-To finish translating, enter 'quit'.
-""")
+print(messageWelcome + ":  " + Translate(messageWelcome))
+print("\nTo finish translating, enter 'quit'.\n")
 
 done = False
 while not done:
     text = input("Text to translate: ")
     done = text.lower() in ['quit', 'itquay']   # User quitting?
-    print(t.Translate(text) + '\n')
+    print(Translate(text) + '\n')
 
-print(t.Translate(messageGoodbye))
+print(Translate(messageGoodbye))

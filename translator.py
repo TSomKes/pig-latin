@@ -1,76 +1,71 @@
 from itertools import takewhile
 
 
-class Translator():
+def Translate(text):
+    """Translate the given text into Pig Latin
 
-    def __init__(self):
-        pass
+    Based on the (very simple) rules at
+    https://en.wikipedia.org/wiki/Pig_Latin#Rules.
 
-    def Translate(self, text):
-        """Translate the given text into Pig Latin
+    Note:
+    - Supports initial capital letters only; assumes all others are
+      lower-case.
+    """
 
-        Based on the (very simple) rules at
-        https://en.wikipedia.org/wiki/Pig_Latin#Rules.
+    translation = ""
 
-        Note:
-        - Supports initial capital letters only; assumes all others are
-          lower-case.
-        """
+    remaining = text
 
-        translation = ""
+    # Find "chunks" of contiguous letters (words) or non-letters
+    # (whitespace, punctuation)
+    while remaining:
 
-        remaining = text
+        chunk = ''
+        if remaining[0].isalpha():
+            chunk = ''.join(takewhile(lambda c: c.isalpha(), remaining))
+            translation += TranslateWord(chunk)
+        else:
+            chunk = ''.join(takewhile(lambda c: not c.isalpha(),
+                            remaining))
+            translation += chunk
 
-        # Find "chunks" of contiguous letters (words) or non-letters
-        # (whitespace, punctuation)
-        while remaining:
+        # Lop off the chunk we just processed
+        remaining = remaining[len(chunk):]
 
-            chunk = ''
-            if remaining[0].isalpha():
-                chunk = ''.join(takewhile(lambda c: c.isalpha(), remaining))
-                translation += self.TranslateWord(chunk)
-            else:
-                chunk = ''.join(takewhile(lambda c: not c.isalpha(),
-                                remaining))
-                translation += chunk
+    return translation
 
-            # Lop off the chunk we just processed
-            remaining = remaining[len(chunk):]
 
-        return translation
+def TranslateWord(word):
 
-    @classmethod
-    def TranslateWord(self, text):
+    translation = ""
 
-        translation = ""
+    stagedConsonants = ""
+    foundVowel = False
 
-        stagedConsonants = ""
-        foundVowel = False
-
-        for c in text:
-            if foundVowel:
+    for c in word:
+        if foundVowel:
+            translation += c
+        else:
+            if IsVowel(c):
+                foundVowel = True
                 translation += c
             else:
-                if Translator.IsVowel(c):
-                    foundVowel = True
-                    translation += c
-                else:
-                    stagedConsonants += c
+                stagedConsonants += c
 
-        if stagedConsonants:
-            translation += stagedConsonants + "ay"
-        else:
-            translation += "way"
+    if stagedConsonants:
+        translation += stagedConsonants + "ay"
+    else:
+        translation += "way"
 
-        # We only support capital letters at the beginning of the word.  Stomp
-        # all the rest down to lower-case, and then condtionally captialize the
-        # "new" first letter.
-        translation = translation.lower()
-        if text[0].isupper():
-            translation = translation[0].upper() + translation[1:]
+    # We only support capital letters at the beginning of the word.  Stomp
+    # all the rest down to lower-case, and then condtionally captialize the
+    # "new" first letter.
+    translation = translation.lower()
+    if word[0].isupper():
+        translation = translation[0].upper() + translation[1:]
 
-        return translation
+    return translation
 
-    @classmethod
-    def IsVowel(self, char):
-        return char and char.lower() in "aeiouy"
+
+def IsVowel(char):
+    return char and char.lower() in "aeiouy"

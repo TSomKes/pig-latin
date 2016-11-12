@@ -3,45 +3,42 @@
 
 import unittest
 
-from translator import Translator
+import translator
 
 
 class TestTranslator(unittest.TestCase):
 
-    def setUp(self):
-        self.t = Translator()
-
     def test_IsVowel_vowels(self):
-        self.assertTrue(self.t.IsVowel('a'))
-        self.assertTrue(self.t.IsVowel('A'))
+        self.assertTrue(translator.IsVowel('a'))
+        self.assertTrue(translator.IsVowel('A'))
 
     def test_IsVowel_consonants(self):
-        self.assertFalse(self.t.IsVowel('b'))
-        self.assertFalse(self.t.IsVowel('B'))
+        self.assertFalse(translator.IsVowel('b'))
+        self.assertFalse(translator.IsVowel('B'))
 
     def test_IsVowel_empty(self):
-        self.assertFalse(self.t.IsVowel(''))
+        self.assertFalse(translator.IsVowel(''))
 
     def test_IsVowel_nonalpha(self):
-        self.assertFalse(self.t.IsVowel(' '))
-        self.assertFalse(self.t.IsVowel('-'))
-        self.assertFalse(self.t.IsVowel('1'))
+        self.assertFalse(translator.IsVowel(' '))
+        self.assertFalse(translator.IsVowel('-'))
+        self.assertFalse(translator.IsVowel('1'))
 
     def test_Translate_singleword_initialvowel(self):
-        self.assertEqual(self.t.Translate("aardvark"), "aardvarkway")
+        self.assertEqual(translator.Translate("aardvark"), "aardvarkway")
 
     def test_Translate_singleword_initialconsonant(self):
-        self.assertEqual(self.t.Translate("foo"), "oofay")
+        self.assertEqual(translator.Translate("foo"), "oofay")
 
     def test_Translate_singleword_uppercase(self):
-        self.assertEqual(self.t.Translate("Aardvark"), "Aardvarkway")
-        self.assertEqual(self.t.Translate("Foo"), "Oofay")
+        self.assertEqual(translator.Translate("Aardvark"), "Aardvarkway")
+        self.assertEqual(translator.Translate("Foo"), "Oofay")
 
     def test_Translate_multiplewords(self):
-        self.assertEqual(self.t.Translate("this is a test"),
+        self.assertEqual(translator.Translate("this is a test"),
                          "isthay isway away esttay")
-        self.assertEqual(self.t.Translate("And this one has Capital Letters."),
-                         "Andway isthay oneway ashay Apitalcay Etterslay.")
+        self.assertEqual(translator.Translate("And this has Capital Letters."),
+                         "Andway isthay ashay Apitalcay Etterslay.")
 
     def test_Translate_multiplelines(self):
         original = """Testing 1 2 3.
@@ -51,7 +48,7 @@ class TestTranslator(unittest.TestCase):
         Ewlinenay, ewlinenay!
         ...Isway isthay ingthay onway?"""
 
-        self.assertEqual(self.t.Translate(original), expected)
+        self.assertEqual(translator.Translate(original), expected)
 
 if __name__ == "main":
     unittest.main()
