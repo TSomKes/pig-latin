@@ -6,6 +6,10 @@ import os
 import translator
 
 
+messageWelcome = "Pig Latin"
+messageGoodbye = "Goodbye! :)"
+
+
 t = translator.Translator()
 
 # Clear display
@@ -13,8 +17,8 @@ os.system('cls')
 os.system('clear')
 
 # Print welcome message
-print("""Pig Latin:  Igpay Atinlay
-
+print(messageWelcome + ":  " + t.Translate(messageWelcome))
+print(""" 
 To finish translating, enter 'quit'.
 """)
 
@@ -24,4 +28,4 @@ while not done:
     done = text in ['quit', 'itquay']   # User quitting?
     print(t.Translate(text) + '\n')
 
-print("Oodbyegay")
+print(t.Translate(messageGoodbye))
