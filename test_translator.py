@@ -10,7 +10,7 @@ class TestTranslator(unittest.TestCase):
 
     def test_FindSplit_wordsimple(self):
         self.assertEqual(translator.FindSplit('a'), 0)
-        self.assertEqual(translator.FindSplit('b'), 0)
+        self.assertEqual(translator.FindSplit('b'), 1)
         self.assertEqual(translator.FindSplit('test'), 1)
         self.assertEqual(translator.FindSplit('know'), 2)
 
@@ -26,10 +26,10 @@ class TestTranslator(unittest.TestCase):
 
     def test_FindSplit_nonword(self):
         self.assertEqual(translator.FindSplit(''), 0)
-        self.assertEqual(translator.FindSplit(' '), 0)
-        self.assertEqual(translator.FindSplit('-'), 0)
-        self.assertEqual(translator.FindSplit('1'), 0)
-        self.assertEqual(translator.FindSplit('...)?", '), 0)
+        self.assertEqual(translator.FindSplit(' '), 1)
+        self.assertEqual(translator.FindSplit('-'), 1)
+        self.assertEqual(translator.FindSplit('1'), 1)
+        self.assertEqual(translator.FindSplit('...)?", '), 8)
 
     def test_Translate_singleword_initialvowel(self):
         self.assertEqual(translator.Translate("aardvark"), "aardvarkway")
