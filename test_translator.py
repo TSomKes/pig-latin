@@ -8,21 +8,28 @@ import translator
 
 class TestTranslator(unittest.TestCase):
 
-    def test_IsVowel_vowels(self):
-        self.assertTrue(translator.IsVowel('a'))
-        self.assertTrue(translator.IsVowel('A'))
+    def test_FindSplit_wordsimple(self):
+        self.assertEqual(translator.FindSplit('a'), 0)
+        self.assertEqual(translator.FindSplit('b'), 0)
+        self.assertEqual(translator.FindSplit('test'), 1)
+        self.assertEqual(translator.FindSplit('know'), 2)
 
-    def test_IsVowel_consonants(self):
-        self.assertFalse(translator.IsVowel('b'))
-        self.assertFalse(translator.IsVowel('B'))
+    def test_FindSplit_wordcontains_y(self):
+        self.assertEqual(translator.FindSplit('try'), 2)
+        self.assertEqual(translator.FindSplit('chrysalis'), 3)
+        self.assertEqual(translator.FindSplit('yes'), 1)
+        self.assertEqual(translator.FindSplit('Yvonne'), 0)
 
-    def test_IsVowel_empty(self):
-        self.assertFalse(translator.IsVowel(''))
+    def test_FindSplit_wordcontains_qu(self):
+        self.assertEqual(translator.FindSplit('quit'), 2)
+        self.assertEqual(translator.FindSplit('squishy'), 3)
 
-    def test_IsVowel_nonalpha(self):
-        self.assertFalse(translator.IsVowel(' '))
-        self.assertFalse(translator.IsVowel('-'))
-        self.assertFalse(translator.IsVowel('1'))
+    def test_FindSplit_nonword(self):
+        self.assertEqual(translator.FindSplit(''), 0)
+        self.assertEqual(translator.FindSplit(' '), 0)
+        self.assertEqual(translator.FindSplit('-'), 0)
+        self.assertEqual(translator.FindSplit('1'), 0)
+        self.assertEqual(translator.FindSplit('...)?", '), 0)
 
     def test_Translate_singleword_initialvowel(self):
         self.assertEqual(translator.Translate("aardvark"), "aardvarkway")

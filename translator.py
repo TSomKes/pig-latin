@@ -69,3 +69,29 @@ def TranslateWord(word):
 
 def IsVowel(char):
     return char and char.lower() in "aeiouy"
+
+
+def FindSplit(word):
+    split = 0 
+
+    i = 0
+    while i < len(word):
+        # Split at the first vowel found...
+        if word[i].lower() in "aeio":
+            split = i
+            break
+        # ...unless that first vowel happens to be a U following a Q.
+        elif word[i].lower() == 'u':
+            if word[i-1].lower() != 'q':
+                split = i
+                break
+        # Initial Ys are only considered vowels when not followed by another
+        # vowel.
+        elif word[i].lower() == 'y':
+            if i != 0 or word[i + 1].lower() not in "aeiou":
+                split = i
+                break
+
+        i += 1
+
+    return split 
