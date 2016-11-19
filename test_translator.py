@@ -41,6 +41,10 @@ class TestTranslator(unittest.TestCase):
         self.assertEqual(translator.Translate("Aardvark"), "Aardvarkway")
         self.assertEqual(translator.Translate("Foo"), "Oofay")
 
+    def test_Translate_singleword_apostrophes(self):
+        self.assertEqual(translator.Translate("don't"), "on'tday")
+        self.assertEqual(translator.Translate("Peter's"), "Eter'spay")
+
     def test_Translate_multiplewords(self):
         self.assertEqual(translator.Translate("this is a test"),
                          "isthay isway away esttay")

@@ -17,12 +17,12 @@ def Translate(text):
     remaining = text
 
     # Find "chunks" of contiguous letters (words) or non-letters
-    # (whitespace, punctuation)
+    # (white space, punctuation)
     while remaining:
 
         chunk = ''
-        if remaining[0].isalpha():
-            chunk = ''.join(takewhile(lambda c: c.isalpha(), remaining))
+        if remaining[0].isalpha() or remaining[0] == "'":
+            chunk = ''.join(takewhile(lambda c: c.isalpha() or c == "'", remaining))
             translation += TranslateWord(chunk)
         else:
             chunk = ''.join(takewhile(lambda c: not c.isalpha(),
@@ -49,7 +49,7 @@ def TranslateWord(word):
         translation += "way"
 
     # We only support capital letters at the beginning of the word.  Stomp
-    # all the rest down to lower-case, and then condtionally captialize the
+    # all the rest down to lower-case, and then conditionally capitalize the
     # "new" first letter.
     translation = translation.lower()
     if word[0].isupper():
