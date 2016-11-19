@@ -39,21 +39,12 @@ def TranslateWord(word):
 
     translation = ""
 
-    stagedConsonants = ""
-    foundVowel = False
+    split = FindSplit(word)
 
-    for c in word:
-        if foundVowel:
-            translation += c
-        else:
-            if IsVowel(c):
-                foundVowel = True
-                translation += c
-            else:
-                stagedConsonants += c
+    translation = word[split:] + word[:split]
 
-    if stagedConsonants:
-        translation += stagedConsonants + "ay"
+    if split > 0:
+        translation += "ay"
     else:
         translation += "way"
 
@@ -67,5 +58,25 @@ def TranslateWord(word):
     return translation
 
 
-def IsVowel(char):
-    return char and char.lower() in "aeiouy"
+# Find the "split" point in a word--basically, the first vowely-vowel.  
+# Assumes we've been handed a well-formed word.  
+def FindSplit(word):
+
+    i = 0
+    while i < len(word):
+        # Split at the first vowel found...
+        if word[i].lower() in "aeio":
+            break
+        # ...unless that first vowel happens to be a U following a Q.
+        elif word[i].lower() == 'u':
+            if word[i-1].lower() != 'q':
+                break
+        # Initial Ys are only considered vowels when not followed by another
+        # vowel.
+        elif word[i].lower() == 'y':
+            if i != 0 or word[i + 1].lower() not in "aeiou":
+                break
+
+        i += 1
+
+    return i 
