@@ -58,6 +58,8 @@ def TranslateWord(word):
     return translation
 
 
+# Find the "split" point in a word--basically, the first vowely-vowel.  
+# Assumes we've been handed a well-formed word.  
 def FindSplit(word):
 
     i = 0
